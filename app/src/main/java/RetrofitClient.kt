@@ -1,6 +1,8 @@
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import com.example.alignhoroscope.api.HoroscopeApi
+
 
 object RetrofitClient {
     private const val BASE_URL = "https://sameer-kumar-aztro-v1.p.rapidapi.com/"
