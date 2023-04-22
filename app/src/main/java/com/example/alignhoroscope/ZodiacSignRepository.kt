@@ -1,7 +1,7 @@
 class HoroscopeRepository {
     val zodiacSign = "gemini"
     val date = "today"
-//    private val horoscopepeApi = HoroscopeApi.getHoroscope(zodiacSign, date)
+//    private val horoscopeApi = HoroscopeApi.getHoroscope(zodiacSign, date)
 
 //    fun getHoroscope(zodiacSign: String, date: String, onSuccess: (Horoscope) -> Unit, onError: (Throwable) -> Unit) {
 //        viewModelScope.launch {

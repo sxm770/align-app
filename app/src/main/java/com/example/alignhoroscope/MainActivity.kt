@@ -22,6 +22,7 @@ import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.*
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -34,9 +35,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            if (response != null) {
-                Log.d("hello", response)
-            }
             val navController = rememberNavController()
             NavHost(navController = navController, startDestination = "main") {
                 composable("main") { MainPage { zodiacSign -> navController.navigate("horoscope/$zodiacSign") } }
@@ -50,22 +48,6 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-
-    val client = OkHttpClient()
-
-    val request = Request.Builder()
-        .url("https://sameer-kumar-aztro-v1.p.rapidapi.com/?sign={${zodiacSigns[2]}}&day={${days[0]}}")
-        .addHeader("X-RapidAPI-Key", "fd7fe46ae1msh1ea3cf087dfadc9p1969ebjsn0558213f4849")
-        .addHeader("X-RapidAPI-Host", "sameer-kumar-aztro-v1.p.rapidapi.com")
-        .build()
-
-    val response = client.newCall(request).execute().body?.string()
-
-    sealed class Result<out R> {
-        data class Success<out T>(val data: T) : Result<T>()
-        data class Error(val exception: Exception) : Result<Nothing>()
-    }
-
 
     @Composable
     private fun MainPage( onHoroscopeClicked : (String) -> Unit ) {
@@ -84,16 +66,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-//@Composable
-//fun HoroscopePage() {
-//    val navController = rememberNavController()
-//    val navGraph =
-//    NavHost(
-//        navController, R.navigation.nav_graph ,
-////        startDestination = "horoscopePage")
-//    )
-//}
 
 val zodiacSigns = listOf("aries", "taurus", "gemini", "cancer", "leo", "virgo", "libra", "scorpio","sagittarius", "capricorn", "aquarius", "pisces")
 val days = listOf("today", "yesterday", "tomorrow")
