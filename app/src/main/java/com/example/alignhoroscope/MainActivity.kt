@@ -12,6 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
@@ -24,11 +25,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.alignhoroscope.ui.theme.AlignhoroscopeTheme
 import java.util.*
 
 class MainActivity : ComponentActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -42,23 +41,6 @@ class MainActivity : ComponentActivity() {
                     val zodiacSign = backStackEntry.arguments?.getString("zodiacSign") ?: ""
                     HoroscopeScreen(zodiacSign)
                 }
-            }
-        }
-    }
-}
-
-@Composable
-private fun MainPage(onHoroscopeClicked: (String) -> Unit) {
-    AlignhoroscopeTheme {
-        Surface(
-            modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
-        ) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.verticalScroll(rememberScrollState())
-            ) {
-                HomePageHeader()
-                ZodiacList(onHoroscopeClicked)
             }
         }
     }
@@ -78,23 +60,6 @@ val zodiacSigns = listOf(
     "aquarius",
     "pisces"
 )
-
-@Composable
-fun HomePageHeader() {
-    Column {
-        Text(
-            stringResource(R.string.choose_zodiac).uppercase(),
-            fontSize = 20.sp,
-            maxLines = 1,
-            textAlign = Center,
-            color = MaterialTheme.colorScheme.primary,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 50.dp, bottom = 20.dp)
-
-        )
-    }
-}
 
 @Composable
 fun ZodiacList(onHoroscopeClicked: (String) -> Unit) {
@@ -147,5 +112,18 @@ fun ZodiacCard(
 fun HoroscopeScreen(
     zodiacSign: String,
 ) {
-    Text(text = "what up $zodiacSign")
+//     Get the ViewModel
+//    val viewModel: HoroscopeViewModel = hiltViewModel()
+
+//     Observe the horoscope state
+//    val horoscope by viewModel.horoscope.observeAsState("")
+
+//     Fetch the horoscope when the screen is displayed
+    LaunchedEffect(zodiacSign) {
+//        viewModel.fetchHoroscope(zodiacSign)
+    }
+
+//    Text(text = "Horoscope for $zodiacSign: $horoscope")
+    Text("whats up $zodiacSign")
 }
+
